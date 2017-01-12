@@ -1,6 +1,8 @@
 // Copyright 1998-2016 Epic Games, Inc. All Rights Reserved.
 #pragma once
 #include "GameFramework/Character.h"
+#include "Perception/PawnSensingComponent.h"
+#include "Components/PawnNoiseEmitterComponent.h"
 #include "ExiledGameCharacter.generated.h"
 
 class UInputComponent;
@@ -73,6 +75,15 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
+
+	/*The function that is going to play the sound and report it to our game*/
+	UFUNCTION(BlueprintCallable, Category = AI)
+	void ReportNoise(USoundBase* SoundToPlay, float Volume);
+
+	/*A Pawn Noise Emitter component which is used in order to emit the sounds to nearby AIs*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	UPawnNoiseEmitterComponent* PawnNoiseEmitterComp;
+
 
 protected:
 	

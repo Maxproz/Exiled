@@ -78,6 +78,22 @@ AExiledGameCharacter::AExiledGameCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	PawnNoiseEmitterComp = CreateDefaultSubobject<UPawnNoiseEmitterComponent>(TEXT("PawnNoiseEmitterComp"));
+}
+
+void AExiledGameCharacter::ReportNoise(USoundBase* SoundToPlay, float Volume)
+{
+	//If we have a valid sound to play, play the sound and
+	//report it to our game
+	if (SoundToPlay)
+	{
+		//Play the actual sound
+		UGameplayStatics::PlaySoundAtLocation(GetWorld(), SoundToPlay, GetActorLocation(), Volume);
+
+		//Report that we've played a sound with a certain volume in a specific location
+		MakeNoise(Volume, this, GetActorLocation());
+	}
 }
 
 void AExiledGameCharacter::BeginPlay()
